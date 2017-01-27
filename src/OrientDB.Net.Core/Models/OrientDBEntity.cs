@@ -12,5 +12,6 @@ namespace OrientDB.Net.Core.Models
         public short OClassId { get; set; }
         public string OClassName { get; set; }
         public abstract void Hydrate(IDictionary<string, object> data);
+        public abstract IDictionary<string, object> ToDictionary();
     }
 }
