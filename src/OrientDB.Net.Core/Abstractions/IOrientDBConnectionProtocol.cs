@@ -8,5 +8,6 @@ namespace OrientDB.Net.Core.Abstractions
     {
         IEnumerable<TResultType> ExecuteQuery<TResultType>(string sql, IOrientDBRecordSerializer<TDataType> serializer) where TResultType : OrientDBEntity;
         IOrientDBCommandResult ExecuteCommand(string sql, IOrientDBRecordSerializer<TDataType> serializer);
+        IOrientDBTransaction CreateTransaction(IOrientDBRecordSerializer<byte[]> serializer);
     }
 }

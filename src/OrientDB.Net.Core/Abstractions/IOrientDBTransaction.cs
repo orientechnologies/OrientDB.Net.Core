@@ -6,5 +6,6 @@ namespace OrientDB.Net.Core.Abstractions
     {
         void AddEntity<T>(T entity) where T : OrientDBEntity;
         void Commit();
+        void Reset();
     }
 }

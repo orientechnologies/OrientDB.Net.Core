@@ -1,5 +1,4 @@
-﻿using OrientDB.Net.Core.Data;
-using OrientDB.Net.Core.Models;
+﻿using OrientDB.Net.Core.Models;
 using System.Collections.Generic;
 
 namespace OrientDB.Net.Core.Abstractions
