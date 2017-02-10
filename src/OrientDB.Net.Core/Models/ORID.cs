@@ -140,8 +140,9 @@ namespace OrientDB.Net.Core.Models
 
         public static ORID NewORID()
         {
-            _tempObjectId = _tempObjectId--;
-            return new ORID(-1, _tempObjectId);
+            var orid = new ORID(-1, _tempObjectId);
+            _tempObjectId = --_tempObjectId;
+            return orid;
         }
     }
 }
