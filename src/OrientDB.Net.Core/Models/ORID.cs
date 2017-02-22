@@ -136,11 +136,11 @@ namespace OrientDB.Net.Core.Models
             return ClusterId == other.ClusterId && ClusterPosition == other.ClusterPosition;
         }
 
-        private static long _tempObjectId = -1;
+        private static long _tempObjectId = -2;
 
         public static ORID NewORID()
         {
-            var orid = new ORID(-1, _tempObjectId);
+            var orid = new ORID(-2, _tempObjectId);
             _tempObjectId = --_tempObjectId;
             return orid;
         }
