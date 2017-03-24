@@ -20,7 +20,7 @@ Install-Package OrientDB.Net.Core -Version 0.1.0
 
 ### IOrientConnection
 
-IOrientConnection provides the base interface for implementing an OrientDB connection. Currently this support query execution.
+IOrientConnection provides the base interface for implementing an OrientDB connection. Currently this only supports query execution.
 
 ```
 namespace OrientDB.Net.Core.Abstractions
