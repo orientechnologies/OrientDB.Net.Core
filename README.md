@@ -10,6 +10,12 @@ The current state of the driver and its derived components is pre-alpha. As such
 OrientDB.Net.Core is the core library that provides the
 base classes and abstractions that represent the "core" of the API. It provides abstractions for communication with OrientDB and Serialization/De-Serialization of the output. The intent is to be able to flip between binary and http in the beginning and add any additional support that may arise.
 
+To install the driver using NuGet:
+
+```
+Install-Package OrientDB.Net.Core -Version 0.1.0
+```
+
 ## Interface Documentation - OrientDB.Net.Core.Abstractions
 
 ### IOrientConnection
