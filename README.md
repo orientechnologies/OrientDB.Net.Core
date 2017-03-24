@@ -6,3 +6,118 @@ The current state of the driver and its derived components is pre-alpha. As such
 
 OrientDB.Net.Core is the core library that provides the
 base classes and abstractions that represent the "core" of the API. It provides abstractions for communication with OrientDB and Serialization/De-Serialization of the output. The intent is to be able to flip between binary and http in the beginning and add any additional support that may arise.
+
+## Interface Documentation - OrientDB.Net.Core
+
+### IOrientConnection
+
+IOrientConnection provides the base interface for implementing an OrientDB connection. Currently this support query execution.
+
+```
+namespace OrientDB.Net.Core.Abstractions
+{
+    public interface IOrientConnection
+    {
+        IEnumerable<TResultType> ExecuteQuery<TResultType>(string sql) where TResultType : OrientDBEntity;
+        IOrientDBCommandResult ExecuteCommand(string sql);        
+    }
+}
+```
+
+### IOrientConnectionFactory
+
+IOrientConnectionFactory provides the basic interface for implementing an OrientDB Connection Factory.
+
+```
+namespace OrientDB.Net.Core.Abstractions
+{
+    public interface IOrientConnectionFactory
+    {
+        IOrientConnection GetConnection();
+    }
+}
+```
+
+### IOrientDBCommandResult
+
+IOrientDBCommandResult provides the basic interface for implementing a Command Result. This is not for Queries. Also note that this interface is currently under review to possibly be removed or heavily modified.
+
+```
+namespace OrientDB.Net.Core.Abstractions
+{
+    public interface IOrientDBCommandResult
+    {
+        int RecordsAffected { get; }
+    }
+}
+```
+
+### IOrientDBConnectionProtocol
+
+IOrientDBConnectionProtocol<TDataType> interface is used to create an OrientDB Protocol implementation. This could be the binary, HTTP, or yet undeveloped means of communicating with the OrientDB server. The <TDataType> generic constraint is used to define what kind of IOrientDBRecordSerializer<TDataType> can be used with the protocol implementation. This is in place so that an incompatible IOrientDBRecordSerializer cannot be used.
+
+```
+namespace OrientDB.Net.Core.Abstractions
+{
+    public interface IOrientDBConnectionProtocol<TDataType> : IDisposable
+    {
+        IEnumerable<TResultType> ExecuteQuery<TResultType>(string sql, IOrientDBRecordSerializer<TDataType> serializer) where TResultType : OrientDBEntity;
+        IOrientDBCommandResult ExecuteCommand(string sql, IOrientDBRecordSerializer<TDataType> serializer);
+        IOrientDBTransaction CreateTransaction(IOrientDBRecordSerializer<byte[]> serializer);
+    }
+}
+```
+
+### IOrientDBLogger
+
+The IOrientDBLogger interface is used to create Logging wrappers to hook into the logging framework with OrientDB.Net.Core factories and implementations. It is recommended that any Protocols or Serializers use the interface for maximum logging compatibility.
+
+```
+namespace OrientDB.Net.Core.Abstractions
+{
+    public interface IOrientDBLogger
+    {
+        void Debug(string message);
+        void Information(string message);
+        void Verbose(string message);
+        void Error(string message);
+        void Fatal(string message);
+        void Warning(string message);
+    }
+}
+```
+
+### IOrientDBRecordSerializer
+
+The IOrientDBRecordSerializer<TDataType> interface is used to create Record Serializers for IOrientDBConnectionProtocols. It should be used to effectively serialize records for the chosen protocol and deserialize results in a way that the protocol implementation can reason about.
+
+```
+namespace OrientDB.Net.Core.Abstractions
+{
+    public interface IOrientDBRecordSerializer<TDataType>
+    {
+        OrientDBRecordFormat RecordFormat { get; }
+        TResultType Deserialize<TResultType>(TDataType data) where TResultType : OrientDBEntity;
+        TDataType Serialize<T>(T input) where T : OrientDBEntity;
+    }
+}
+```
+
+### IOrientDBTransaction
+
+IOrientDBTransaction is used to create Transaction implementations for OrientDB.Net Protocols.
+
+```
+namespace OrientDB.Net.Core.Abstractions
+{
+    public interface IOrientDBTransaction
+    {
+        void AddEntity<T>(T entity) where T : OrientDBEntity;
+        void Remove<T>(T entity) where T : OrientDBEntity;
+        void Update<T>(T entity) where T : OrientDBEntity;
+        void AddEdge(Edge edge, Vertex from, Vertex to);
+        void Commit();
+        void Reset();
+    }
+}
+```
