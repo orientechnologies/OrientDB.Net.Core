@@ -3,7 +3,7 @@
 
 *Status:* **_Experimental_**
 
-OrientDB.Net.Core represents a re-imaging of the .NET OrientDB Driver for .NET Framework. Written using the new .NET Core SDK, it supports .NET Framework 4.5.1 and .NET Core 1.0 and above. The purpose in re-imaging the .NET OrientDB driver, is to design an extensible base library that can support any number of implementations in the same vein as the Serilog project.
+OrientDB.Net.Core represents a re-imaging of the .NET OrientDB SDK for .NET Framework. Written using the new .NET Core SDK, it supports .NET Framework 4.5.1 and .NET Core 1.0 and above. The purpose in re-imaging the .NET OrientDB SDK, is to design an extensible base library that can support any number of implementations in the same vein as the Serilog project.
 
 The current state of the driver and its derived components is pre-alpha. As such, the library itself can and will change substantially over the coming months.
 
@@ -18,17 +18,37 @@ Install-Package OrientDB.Net.Core -Version 0.1.0
 
 ## Interface Documentation - OrientDB.Net.Core.Abstractions
 
-### IOrientConnection
+### IOrientDatabaseConnection
 
-IOrientConnection provides the base interface for implementing an OrientDB connection. Currently this only supports query execution.
+IOrientConnection provides an interface for interacting with an OrientDB database.
 
 ```
 namespace OrientDB.Net.Core.Abstractions
 {
-    public interface IOrientConnection
+    public interface IOrientDatabaseConnection
     {
         IEnumerable<TResultType> ExecuteQuery<TResultType>(string sql) where TResultType : OrientDBEntity;
         IOrientDBCommandResult ExecuteCommand(string sql);        
+    }
+}
+```
+
+### IOrientServerConnection
+
+IOrientServerConnection provides an interface for interacting with an OrientDB Server Host itself.
+
+```
+namespace OrientDB.Net.Core.Abstractions
+{
+    public interface IOrientServerConnection
+    {
+        IOrientDatabaseConnection CreateDatabase(string database, StorageType type);
+        void DeleteDatabase(string database, StorageType type);
+        bool DatabaseExists(string database, StorageType type);
+        void Shutdown(string username, string password);
+        IEnumerable<string> ListDatabases();
+        string GetConfigValue(string name);
+        void SetConfigValue(string name, string value);
     }
 }
 ```
@@ -42,7 +62,8 @@ namespace OrientDB.Net.Core.Abstractions
 {
     public interface IOrientConnectionFactory
     {
-        IOrientConnection GetConnection();
+        IOrientDatabaseConnection GetClientConnection();
+        IOrientServerConnection GetServerConnection();
     }
 }
 ```

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>OrientDB .NET Driver</Description>
+    <Description>OrientDB .NET SDK</Description>
     <AssemblyTitle>OrientDB.Net.Core</AssemblyTitle>
     <VersionPrefix>0.1.0</VersionPrefix>
     <Authors>Michael Davidson</Authors>
