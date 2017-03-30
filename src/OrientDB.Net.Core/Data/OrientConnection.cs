@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace OrientDB.Net.Core.Data
 {
-    public class OrientConnection<TDataType> : IOrientConnection
+    public class OrientConnection<TDataType> : IOrientDatabaseConnection
     {
         private readonly IOrientDBRecordSerializer<TDataType> _serializer;
         private readonly IOrientDBConnectionProtocol<TDataType> _connectionProtocol;
@@ -13,15 +13,9 @@ namespace OrientDB.Net.Core.Data
 
         internal OrientConnection(IOrientDBRecordSerializer<TDataType> serializer, IOrientDBConnectionProtocol<TDataType> connectionProtocol, IOrientDBLogger logger)
         {
-            if (serializer == null)
-                throw new ArgumentNullException($"{nameof(serializer)} cannot be null.");
-            if (connectionProtocol == null)
-                throw new ArgumentNullException($"{nameof(connectionProtocol)} cannot be null.");
-            if (logger == null)
-                throw new ArgumentNullException($"{nameof(logger)} cannot be null.");
-            _serializer = serializer;
-            _connectionProtocol = connectionProtocol;
-            _logger = logger;
+            _serializer = serializer ?? throw new ArgumentNullException($"{nameof(serializer)} cannot be null.");
+            _connectionProtocol = connectionProtocol ?? throw new ArgumentNullException($"{nameof(connectionProtocol)} cannot be null.");
+            _logger = logger ?? throw new ArgumentNullException($"{nameof(logger)} cannot be null.");
         }
 
         public IEnumerable<TResultType> ExecuteQuery<TResultType>(string sql) where TResultType : OrientDBEntity

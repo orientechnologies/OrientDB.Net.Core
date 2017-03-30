@@ -2,6 +2,7 @@
 {
     public interface IOrientConnectionFactory
     {
-        IOrientConnection GetConnection();
+        IOrientDatabaseConnection GetClientConnection();
+        IOrientServerConnection GetServerConnection();
     }
 }

@@ -13,29 +13,28 @@ namespace OrientDB.Net.Core
         internal OrientConnectionFactory(IOrientDBConnectionProtocol<TDataType> connectionProtocol,
             IOrientDBRecordSerializer<TDataType> serializer, IOrientDBLogger logger)
         {
-            if (connectionProtocol == null)
-                throw new ArgumentNullException($"{nameof(connectionProtocol)} cannot be null.");
-            if (serializer == null)
-                throw new ArgumentNullException($"{nameof(serializer)} cannot be null");
-            if (logger == null)
-                throw new ArgumentNullException($"{nameof(logger)} cannot be null");
-            _connectionProtocol = connectionProtocol;
-            _serializer = serializer;
-            _logger = logger;
+            _connectionProtocol = connectionProtocol ?? throw new ArgumentNullException($"{nameof(connectionProtocol)} cannot be null.");
+            _serializer = serializer ?? throw new ArgumentNullException($"{nameof(serializer)} cannot be null");
+            _logger = logger ?? throw new ArgumentNullException($"{nameof(logger)} cannot be null");
         }
 
-        public IOrientConnection GetConnection()
-        {
+        public IOrientDatabaseConnection GetClientConnection()
+        {         
             if (_connectionProtocol == null)
                 throw new NullReferenceException($"{nameof(_connectionProtocol)} cannot be null.");
             if (_serializer == null)
                 throw new NullReferenceException($"{nameof(_serializer)} cannot be null.");
             if (_logger == null)
-                throw new NullReferenceException($"{nameof(_logger)} cannot be null.");             
+                throw new NullReferenceException($"{nameof(_logger)} cannot be null.");
 
             var connection = new OrientConnection<TDataType>(_serializer, _connectionProtocol, _logger);
 
             return connection;
+        }
+
+        public IOrientServerConnection GetServerConnection()
+        {
+            throw new NotImplementedException();
         }
     }
 }

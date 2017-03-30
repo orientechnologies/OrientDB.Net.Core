@@ -29,7 +29,7 @@ namespace OrientDB.Net.Core
         private IOrientDBLogger _logger;
         private Type _connectionType;
 
-        private IOrientConnection _orientConnection;
+        private IOrientDatabaseConnection _orientConnection;
 
         public OrientDBConfiguration()
         {
