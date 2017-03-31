@@ -12,7 +12,7 @@ namespace OrientDB.Net.Core.Data
         private readonly IOrientServerConnection _serverConnection;
         private readonly IOrientDatabaseConnection _databaseConnection;
 
-        internal OrientConnection(IOrientDBRecordSerializer<TDataType> serializer, IOrientDBConnectionProtocol<TDataType> connectionProtocol, IOrientDBLogger logger, string database, StorageType storageType = StorageType.PLocal, int poolSize = 10)
+        internal OrientConnection(IOrientDBRecordSerializer<TDataType> serializer, IOrientDBConnectionProtocol<TDataType> connectionProtocol, IOrientDBLogger logger, string database, DatabaseType databaseType, int poolSize = 10)
         {
             if (serializer == null) throw new ArgumentNullException($"{nameof(serializer)}");
             if (connectionProtocol == null) throw new ArgumentNullException($"{nameof(connectionProtocol)}");
@@ -20,7 +20,7 @@ namespace OrientDB.Net.Core.Data
             _logger = logger ?? throw new ArgumentNullException($"{nameof(logger)}");
 
             _serverConnection = connectionProtocol.CreateServerConnection(serializer, logger);
-            _databaseConnection = _serverConnection.DatabaseConnect(database, storageType, poolSize);
+            _databaseConnection = _serverConnection.DatabaseConnect(database, databaseType, poolSize);
         }
 
         public IEnumerable<TResultType> ExecuteQuery<TResultType>(string sql) where TResultType : OrientDBEntity
