@@ -7,5 +7,6 @@ namespace OrientDB.Net.Core.Abstractions
     {
         IEnumerable<TResultType> ExecuteQuery<TResultType>(string sql) where TResultType : OrientDBEntity;
         IOrientDBCommandResult ExecuteCommand(string sql);
+        IOrientDBTransaction CreateTransaction();
     }
 }

@@ -1,8 +1,9 @@
-﻿namespace OrientDB.Net.Core.Abstractions
+﻿using OrientDB.Net.Core.Models;
+
+namespace OrientDB.Net.Core.Abstractions
 {
     public interface IOrientConnectionFactory
     {
-        IOrientDatabaseConnection GetClientConnection();
-        IOrientServerConnection GetServerConnection();
+        IOrientServerConnection CreateConnection();
     }
 }

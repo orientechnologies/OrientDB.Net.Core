@@ -13,7 +13,7 @@ base classes and abstractions that represent the "core" of the API. It provides 
 To install the driver using NuGet:
 
 ```
-Install-Package OrientDB.Net.Core -Version 0.1.0
+Install-Package OrientDB.Net.Core -Version 0.1.9
 ```
 
 ## Interface Documentation - OrientDB.Net.Core.Abstractions
