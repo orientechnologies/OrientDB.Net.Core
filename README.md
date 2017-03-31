@@ -13,7 +13,63 @@ base classes and abstractions that represent the "core" of the API. It provides 
 To install the driver using NuGet:
 
 ```
-Install-Package OrientDB.Net.Core -Version 0.1.9
+Install-Package OrientDB.Net.Core -Version 0.1.9 (Not yet published, will be shortly.)
+```
+
+Quick Usage Example of SDK:
+
+Person Entity:
+
+```
+public class Person : OrientDBEntity
+{
+    public int Age { get; set; }
+    public string Name { get; set; }
+    public string LastName { get; set; }
+    public IList<string> FavoriteColors { get; set; }
+
+    public override void Hydrate(IDictionary<string, object> data)
+    {
+            Age = (int)data?["Age"];
+            FirstName = data?["FirstName"]?.ToString();
+            LastName = data?["LastName"]?.ToString();
+            FavoriteColors = data.ContainsKey("FavoriteColors") ? (data?["FavoriteColors"] as IList<object>).Select(n => n.ToString()).ToList() : new List<string>();
+    }
+}
+```
+
+SDK Interaction:
+
+```
+IEnumerable<Person> persons = new List<Person>();
+
+IOrientServerConnection server = new OrientDBConfiguration()
+    .ConnectWith<byte[]>()
+    .Connect(new BinaryProtocol("127.0.0.1", "root", "root"))
+    .SerializeWith.Serializer(new OrientDBRecordCSVSerializer())
+    .LogWith.Logger(new ConsoleOrientDBLogger())
+    .CreateFactory()
+    .CreateConnection();
+
+IOrientDatabaseConnection database;
+
+if (server.DatabaseExists("ConnectionTest", StorageType.PLocal))
+    database = server.DatabaseConnect("ConnectionTest", DatabaseType.Document);
+else
+    database = server.CreateDatabase("ConnectionTest", DatabaseType.Document, StorageType.PLocal);
+
+database.ExecuteCommand("CREATE CLASS Person");
+
+var transaction = database.CreateTransaction();
+var person1 = new Person { Age = 33, FirstName = "Jane", LastName = "Doe", FavoriteColors = new[] { "black", "blue" } };
+transaction.AddEntity(person1);
+transaction.AddEntity(new Person { Age = 5, FirstName = "John" LastName = "Doe", FavoriteColors = new[] { "red", "blue" } });
+transaction.Commit();
+transaction = database.CreateTransaction();
+transaction.Remove(person1);
+transaction.Commit();
+
+persons = database.ExecuteQuery<Person>("SELECT * FROM Person");    
 ```
 
 ## Interface Documentation - OrientDB.Net.Core.Abstractions
