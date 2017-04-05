@@ -13,7 +13,7 @@ base classes and abstractions that represent the "core" of the API. It provides 
 To install the driver using NuGet:
 
 ```
-Install-Package OrientDB.Net.Core -Version 0.1.9 (Not yet published, will be shortly.)
+Install-Package OrientDB.Net.Core -Version 0.1.9
 ```
 
 Quick Usage Example of SDK:
