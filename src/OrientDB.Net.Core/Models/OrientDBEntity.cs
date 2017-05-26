@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrientDB.Net.Core.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,6 +12,7 @@ namespace OrientDB.Net.Core.Models
         public int OVersion { get; set; }
         public short OClassId { get; set; }
         public string OClassName { get; set; }
+
         public virtual void Hydrate(IDictionary<string, object> data)
         {
             var type = this.GetType();
