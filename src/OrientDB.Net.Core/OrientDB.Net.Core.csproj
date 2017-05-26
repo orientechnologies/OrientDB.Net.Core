@@ -14,11 +14,13 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Version>0.1.13</Version>
+    <Version>0.1.14</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/orientechnologies/OrientDB.Net.Core</PackageProjectUrl>
     <RepositoryUrl>https://github.com/orientechnologies/OrientDB.Net.Core</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <AssemblyVersion>0.1.14.0</AssemblyVersion>
+    <FileVersion>0.1.14.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
