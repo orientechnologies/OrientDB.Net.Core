@@ -5,28 +5,29 @@
     <AssemblyTitle>OrientDB.Net.Core</AssemblyTitle>
     <VersionPrefix>0.1.0</VersionPrefix>
     <Authors>Michael Davidson</Authors>
-    <TargetFrameworks>net451;netcoreapp1.0</TargetFrameworks>
     <AssemblyName>OrientDB.Net.Core</AssemblyName>
     <PackageId>OrientDB.Net.Core</PackageId>
+    <TargetFramework>netstandard16</TargetFramework>
     <PackageTags>orientdb;database;orient;.net;c#;document;graph</PackageTags>
-    <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
-    <RuntimeFrameworkVersion Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">1.0.4</RuntimeFrameworkVersion>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <Version>0.1.14</Version>
+    <Version>0.1.15</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/orientechnologies/OrientDB.Net.Core</PackageProjectUrl>
     <RepositoryUrl>https://github.com/orientechnologies/OrientDB.Net.Core</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>0.1.14.0</AssemblyVersion>
-    <FileVersion>0.1.14.0</FileVersion>
+    <AssemblyVersion>0.1.15.0</AssemblyVersion>
+    <FileVersion>0.1.15.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Collections.Concurrent" Version="4.0.12" />
     <PackageReference Include="System.Linq" Version="4.1.0" />
     <PackageReference Include="System.Reflection" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.Extensions" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.Primitives" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
