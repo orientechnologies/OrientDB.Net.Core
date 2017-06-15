@@ -3,7 +3,7 @@
 
 *Status:* **_Experimental_**
 
-OrientDB.Net.Core represents a re-imaging of the .NET OrientDB SDK for .NET Framework. Written using the new .NET Core SDK, it supports .NET Framework 4.5.1 and .NET Core 1.0 and above. The purpose in re-imaging the .NET OrientDB SDK, is to design an extensible base library that can support any number of implementations in the same vein as the Serilog project.
+OrientDB.Net.Core represents a re-imaging of the .NET OrientDB SDK for .NET Framework. Written targeting .NET Standard 1.6. The purpose in re-imaging the .NET OrientDB SDK, is to design an extensible base library that can support any number of implementations in the same vein as the Serilog project.
 
 The current state of the driver and its derived components is pre-alpha. As such, the library itself can and will change substantially over the coming months.
 
