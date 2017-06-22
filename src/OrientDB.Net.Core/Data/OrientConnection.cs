@@ -41,7 +41,7 @@ namespace OrientDB.Net.Core.Data
             return data;
         }
 
-        public IEnumerable<TResultType> ExecutePreparedQuery<TResultType>(string sql, IDictionary<string, object> parameters) where TResultType : OrientDBEntity
+        public IEnumerable<TResultType> ExecutePreparedQuery<TResultType>(string sql, params string[] parameters) where TResultType : OrientDBEntity
         {
             if (string.IsNullOrWhiteSpace(sql))
                 throw new ArgumentException($"{nameof(sql)} cannot be zero length or null");
