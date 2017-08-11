@@ -25,6 +25,7 @@ public class Person : OrientDBEntity
 {
     public int Age { get; set; }
     public string Name { get; set; }
+    public string FirstName {get; set; }
     public string LastName { get; set; }
     public IList<string> FavoriteColors { get; set; }
 
@@ -39,6 +40,11 @@ public class Person : OrientDBEntity
 ```
 
 SDK Interaction:
+
+```
+Install-Package OrientDB.Net.ConnectionProtocols.Binary
+Install-Package OrientDB.Net.Serializers.RecordCSVSerializer
+```
 
 ```
 IEnumerable<Person> persons = new List<Person>();
@@ -63,7 +69,7 @@ database.ExecuteCommand("CREATE CLASS Person");
 var transaction = database.CreateTransaction();
 var person1 = new Person { Age = 33, FirstName = "Jane", LastName = "Doe", FavoriteColors = new[] { "black", "blue" } };
 transaction.AddEntity(person1);
-transaction.AddEntity(new Person { Age = 5, FirstName = "John" LastName = "Doe", FavoriteColors = new[] { "red", "blue" } });
+transaction.AddEntity(new Person { Age = 5, FirstName = "John", LastName = "Doe", FavoriteColors = new[] { "red", "blue" } });
 transaction.Commit();
 transaction = database.CreateTransaction();
 transaction.Remove(person1);
