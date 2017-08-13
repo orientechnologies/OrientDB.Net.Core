@@ -34,25 +34,61 @@ namespace OrientDB.Net.Core.Models
                     }
                     else
                     {
-                        Type objectType = data[key].GetType();
-                        if(objectType.Name == typeof(List<>).Name)
+                        var objectType = data[key].GetType();
+
+                        if (objectType.Name == typeof(Dictionary<,>).Name)
                         {
-                            var genericType = propertyType.GenericTypeArguments.First();
-                            Type listType = typeof(List<>);
-                            Type concreteType = listType.MakeGenericType(genericType);
+                            ExtractDictionary(data, propertyType, key, property);
+                            continue;
+                        }
 
-                            var list = Activator.CreateInstance(concreteType);                      
-
-                            foreach(var item in (data[key] as List<object>))
-                            {
-                                concreteType.GetMethod("Add").Invoke(list, new[] { Convert.ChangeType(item, propertyType.GenericTypeArguments.First())});
-                            }
-
-                            property.SetValue(this, list);
+                        if (objectType.Name == typeof(List<>).Name)
+                        {
+                            ExtractList(data, propertyType, key, property);
                         }
                     }
                 }
             }
+        }
+        
+        private void ExtractList(IDictionary<string, object> data, Type propertyType, string key, PropertyInfo property)
+        {
+            var genericType = propertyType.GenericTypeArguments.First();
+            var listType = typeof(List<>);
+            var concreteType = listType.MakeGenericType(genericType);
+
+            var list = Activator.CreateInstance(concreteType);
+
+            var enumerable = data[key] as List<object>;
+            if (enumerable != null)
+                foreach (var item in enumerable)
+                {
+                    concreteType.GetMethod("Add")
+                        .Invoke(list,
+                            new[] {Convert.ChangeType(item, propertyType.GenericTypeArguments.First())});
+                }
+
+            property.SetValue(this, list);
+        }
+
+        private void ExtractDictionary(IDictionary<string, object> data, Type propertyType, string key, PropertyInfo property)
+        {
+            var genericType = propertyType.GetGenericArguments();
+            var dicType = typeof(Dictionary<,>);
+            var correctType = dicType.MakeGenericType(genericType);
+
+            var dic = Activator.CreateInstance(correctType);
+
+            var enumerable = data[key] as IDictionary<string, object>;
+            if (enumerable != null)
+            {
+                foreach (var item in enumerable)
+                {
+                    correctType.GetMethod("Add").Invoke(dic, new[] {item.Key, item.Value});
+                }
+            }
+
+            property.SetValue(this, dic);
         }
     }
 }
