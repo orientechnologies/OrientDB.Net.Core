@@ -10,7 +10,10 @@ namespace OrientDB.Net.Core.Models
 
         public T GetField<T>(string key)
         {
-            return (T)_fields[key];
+            if (_fields.ContainsKey(key)) {
+                return (T) _fields[key];
+            }
+            return default(T);
         }
 
         public void SetField<T>(string key, T obj)
