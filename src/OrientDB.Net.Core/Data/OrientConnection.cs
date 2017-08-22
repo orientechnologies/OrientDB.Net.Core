@@ -56,5 +56,19 @@ namespace OrientDB.Net.Core.Data
         {
             return _databaseConnection.CreateTransaction();
         }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _databaseConnection?.Dispose();
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }
