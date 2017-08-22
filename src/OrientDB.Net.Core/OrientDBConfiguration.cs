@@ -2,6 +2,7 @@
 using OrientDB.Net.Core.Configuration;
 using System;
 using System.Reflection;
+using Microsoft.Extensions.Logging;
 
 namespace OrientDB.Net.Core
 {
@@ -26,7 +27,7 @@ namespace OrientDB.Net.Core
 
         private object _serializer;
         private object _connectionProtocol;
-        private IOrientDBLogger _logger;
+        private ILogger _logger;
         private Type _connectionType;
 
         private IOrientDatabaseConnection _orientConnection;

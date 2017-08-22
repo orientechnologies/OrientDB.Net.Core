@@ -11,17 +11,15 @@ namespace OrientDB.Net.Core.Configuration
         private readonly Action<IOrientDBConnectionProtocol<TDataType>> _configAction;
         private readonly Action<IOrientDBRecordSerializer<TDataType>> _serializerAction;
 
-        internal OrientDBConnectionProtocolConfiguration(OrientDBConfiguration configuration, Action<IOrientDBRecordSerializer<TDataType>> serializerAction, Action<IOrientDBConnectionProtocol<TDataType>> configAction)
+        internal OrientDBConnectionProtocolConfiguration(
+            OrientDBConfiguration configuration, 
+            Action<IOrientDBRecordSerializer<TDataType>> serializerAction, 
+            Action<IOrientDBConnectionProtocol<TDataType>> configAction)
         {
-            if (configuration == null)
-                throw new ArgumentNullException($"{nameof(configuration)} cannot be null.");
-            if (serializerAction == null)
-                throw new ArgumentNullException($"{nameof(serializerAction)} cannot be null.");
-            if (configAction == null)
-                throw new ArgumentNullException($"{nameof(configAction)} cannot be null.");
-            _configuration = configuration;          
-            _configAction = configAction;
-            _serializerAction = serializerAction;
+            _configuration = configuration ?? throw new ArgumentNullException($"{nameof(configuration)} cannot be null.");          
+            _configAction = configAction ?? throw new ArgumentNullException($"{nameof(configAction)} cannot be null.");
+            _serializerAction = serializerAction ?? throw new ArgumentNullException($"{nameof(serializerAction)} cannot be null.");
+
             SerializeWith = new OrientDBSerializationConfiguration<TDataType>(_configuration, _serializerAction);
         }
     }
