@@ -1,5 +1,6 @@
 ﻿using OrientDB.Net.Core.Abstractions;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace OrientDB.Net.Core
 {
@@ -7,10 +8,12 @@ namespace OrientDB.Net.Core
     {
         private readonly IOrientDBConnectionProtocol<TDataType> _connectionProtocol;
         private readonly IOrientDBRecordSerializer<TDataType> _serializer;
-        private readonly IOrientDBLogger _logger;
+        private readonly ILogger _logger;
 
-        internal OrientConnectionFactory(IOrientDBConnectionProtocol<TDataType> connectionProtocol,
-            IOrientDBRecordSerializer<TDataType> serializer, IOrientDBLogger logger)
+        internal OrientConnectionFactory(
+            IOrientDBConnectionProtocol<TDataType> connectionProtocol,
+            IOrientDBRecordSerializer<TDataType> serializer, 
+            ILogger logger)
         {
             _connectionProtocol = connectionProtocol ?? throw new ArgumentNullException($"{nameof(connectionProtocol)} cannot be null.");
             _serializer = serializer ?? throw new ArgumentNullException($"{nameof(serializer)} cannot be null");
