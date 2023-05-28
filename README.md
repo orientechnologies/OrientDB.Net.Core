@@ -20,7 +20,7 @@ Quick Usage Example of SDK:
 
 Person Entity:
 
-```
+```cs
 public class Person : OrientDBEntity
 {
     public int Age { get; set; }
@@ -46,7 +46,7 @@ Install-Package OrientDB.Net.ConnectionProtocols.Binary
 Install-Package OrientDB.Net.Serializers.RecordCSVSerializer
 ```
 
-```
+```cs
 IEnumerable<Person> persons = new List<Person>();
 
 IOrientServerConnection server = new OrientDBConfiguration()
@@ -84,7 +84,7 @@ persons = database.ExecuteQuery<Person>("SELECT * FROM Person");
 
 IOrientConnection provides an interface for interacting with an OrientDB database.
 
-```
+```cs
 namespace OrientDB.Net.Core.Abstractions
 {
     public interface IOrientDatabaseConnection
@@ -101,7 +101,7 @@ namespace OrientDB.Net.Core.Abstractions
 
 IOrientServerConnection provides an interface for interacting with an OrientDB Server Host itself.
 
-```
+```cs
 namespace OrientDB.Net.Core.Abstractions
 {
     public interface IOrientServerConnection
@@ -121,7 +121,7 @@ namespace OrientDB.Net.Core.Abstractions
 
 IOrientConnectionFactory provides the basic interface for implementing an OrientDB Connection Factory.
 
-```
+```cs
 namespace OrientDB.Net.Core.Abstractions
 {
     public interface IOrientConnectionFactory
@@ -136,7 +136,7 @@ namespace OrientDB.Net.Core.Abstractions
 
 IOrientDBCommandResult provides the basic interface for implementing a Command Result. This is not for Queries. Also note that this interface is currently under review to possibly be removed or heavily modified.
 
-```
+```cs
 namespace OrientDB.Net.Core.Abstractions
 {
     public interface IOrientDBCommandResult
@@ -150,7 +150,7 @@ namespace OrientDB.Net.Core.Abstractions
 
 IOrientDBConnectionProtocol<TDataType> interface is used to create an OrientDB Protocol implementation. This could be the binary, HTTP, or yet undeveloped means of communicating with the OrientDB server. The <TDataType> generic constraint is used to define what kind of IOrientDBRecordSerializer<TDataType> can be used with the protocol implementation. This is in place so that an incompatible IOrientDBRecordSerializer cannot be used.
 
-```
+```cs
 namespace OrientDB.Net.Core.Abstractions
 {
     public interface IOrientDBConnectionProtocol<TDataType> : IDisposable
@@ -164,7 +164,7 @@ namespace OrientDB.Net.Core.Abstractions
 
 The IOrientDBLogger interface is used to create Logging wrappers to hook into the logging framework with OrientDB.Net.Core factories and implementations. It is recommended that any Protocols or Serializers use the interface for maximum logging compatibility.
 
-```
+```cs
 namespace OrientDB.Net.Core.Abstractions
 {
     public interface IOrientDBLogger
@@ -183,7 +183,7 @@ namespace OrientDB.Net.Core.Abstractions
 
 The IOrientDBRecordSerializer<TDataType> interface is used to create Record Serializers for IOrientDBConnectionProtocols. It should be used to effectively serialize records for the chosen protocol and deserialize results in a way that the protocol implementation can reason about.
 
-```
+```cs
 namespace OrientDB.Net.Core.Abstractions
 {
     public interface IOrientDBRecordSerializer<TDataType>
@@ -199,7 +199,7 @@ namespace OrientDB.Net.Core.Abstractions
 
 IOrientDBTransaction is used to create Transaction implementations for OrientDB.Net Protocols.
 
-```
+```cs
 namespace OrientDB.Net.Core.Abstractions
 {
     public interface IOrientDBTransaction
